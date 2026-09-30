@@ -29,3 +29,29 @@ Stage Summary:
 - 产出：可运行的 Next.js 16 React Bits 展示站（/ 路由）、16 个可复用组件（src/components/reactbits/）、专业 README.md + LICENSE
 - 关键决策：React Bits 以本地源码组件形式集成（官方推荐的 copy 模式），零运行时依赖锁定；WebGL 组件统一处理 DPR/Resize/资源回收；站点配色采用 React Bits 标志性 #060010 + #5227FF/#FF2D92
 - 待办移交：无。两项既定任务（专业化 README、React Bits 视觉更新）均已完成并通过浏览器验证
+
+---
+Task ID: 2
+Agent: Super Z (main agent)
+Task: 继续迭代——扩充 React Bits 组件库（16 → 22 个）
+
+Work Log:
+- git pull 同步：无远程分支；确认 19dba5b 为系统自动归档的 worklog 提交，无其他智能体改动
+- 新增 6 个 React Bits 组件：
+  - Backgrounds/Squares：Canvas 2D 方格涟漪（方向波 + 悬停点亮）
+  - TextAnimations/TextType：打字机（输入→停顿→删除→循环，闪烁光标）
+  - TextAnimations/CircularText：SVG textPath 圆环文字旋转（悬停加速）
+  - Animations/FadeContent：视口淡入（可选模糊）
+  - Components/ElasticSlider：弹性滑块（指针拖动 + 端点橡皮筋拉伸 + 步进）
+  - Components/Stack：卡片堆叠（甩出顶部卡片，整摞弹簧循环）
+  - Components/MagnetLines：指北针线阵（rAF 线性插值随光标旋转）
+- 更新展示区：背景区 4 卡（md:2/xl:4 网格）、文字区 8 卡、交互区 6 卡；Hero 徽章与统计 16→22；文字区文案 six→eight ways
+- 新增 globals.css：texttype-cursor 闪烁动画
+- README 同步：22 组件矩阵（4 表格新增 7 行）、简介数字、项目结构注释
+- 修复：TextType 未使用的 eslint-disable 指令；ElasticSlider 重写（无效属性、真正的拉伸物理）；Stack 重写（飞出复制卡视觉跳变 → 弹簧循环方案）
+- 验证：bun run lint 0 error/0 warning；agent-browser 实测——Squares 渲染、TextType 打字中、CircularText 旋转、Stack 甩卡循环成功（PALETTE 置顶）、ElasticSlider 拖至 100、MagnetLines 随光标旋转；dev.log 无错误
+- git 提交 343f33b
+
+Stage Summary:
+- 组件总数 16 → 22（4 背景 / 8 文字 / 4 动画 / 6 交互），全部通过浏览器交互实测
+- 展示站、README、worklog 已同步；无遗留问题
