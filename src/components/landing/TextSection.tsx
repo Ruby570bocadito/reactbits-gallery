@@ -7,9 +7,11 @@ import {
   CountUp,
   GradientText,
   RotatingText,
+  ScrambleText,
   ShinyText,
   SplitText,
   SpotlightCard,
+  TextPressure,
   TextType,
 } from "@/components/reactbits";
 
@@ -26,7 +28,7 @@ export default function TextSection() {
               Kinetic <span className="bg-gradient-to-r from-[#B497FF] to-[#FF2D92] bg-clip-text text-transparent">typography</span>
             </h2>
             <BlurText
-              text="From letter-by-letter reveals to flowing gradients — eight ways to make words earn attention."
+              text="From letter-by-letter reveals to flowing gradients — ten ways to make words earn attention."
               className="mt-4 text-base leading-relaxed text-white/60"
               delay={250}
             />
@@ -173,6 +175,42 @@ export default function TextSection() {
                 <h3 className="text-sm font-semibold text-white">CircularText</h3>
                 <p className="mt-1 text-xs leading-relaxed text-white/50">
                   Text riding a circular path — hover to speed the orbit up.
+                </p>
+              </div>
+            </SpotlightCard>
+          </AnimatedContent>
+
+          <AnimatedContent distance={50} delay={0.08}>
+            <SpotlightCard className="h-full">
+              <div className={DEMO_HEIGHT}>
+                <ScrambleText
+                  text="Decode the noise"
+                  speed={30}
+                  className="text-2xl font-bold text-white"
+                />
+              </div>
+              <div className="border-t border-white/[0.06] px-5 py-4">
+                <h3 className="text-sm font-semibold text-white">ScrambleText</h3>
+                <p className="mt-1 text-xs leading-relaxed text-white/50">
+                  Characters tumble from a random pool and lock in left to right.
+                </p>
+              </div>
+            </SpotlightCard>
+          </AnimatedContent>
+
+          <AnimatedContent distance={50} delay={0.16}>
+            <SpotlightCard className="h-full">
+              <div className={DEMO_HEIGHT}>
+                <TextPressure
+                  text="Press me"
+                  falloff={110}
+                  className="text-2xl font-bold text-white"
+                />
+              </div>
+              <div className="border-t border-white/[0.06] px-5 py-4">
+                <h3 className="text-sm font-semibold text-white">TextPressure</h3>
+                <p className="mt-1 text-xs leading-relaxed text-white/50">
+                  Letters stretch under the cursor and spring softly back.
                 </p>
               </div>
             </SpotlightCard>

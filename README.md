@@ -13,7 +13,7 @@
 [![OGL](https://img.shields.io/badge/OGL-WebGL-5227FF?style=flat-square)](https://github.com/oframe/ogl)
 [![License: MIT](https://img.shields.io/badge/License-MIT-8261FF?style=flat-square)](LICENSE)
 
-*22 个精心策划的 [React Bits](https://reactbits.dev) 动效组件 · WebGL 背景 · 动态排版 · 微交互*
+*28 个精心策划的 [React Bits](https://reactbits.dev) 动效组件 · WebGL 背景 · 动态排版 · 微交互*
 
 </div>
 
@@ -21,7 +21,7 @@
 
 ## 📖 简介
 
-**React Bits Gallery** 是一个基于 Next.js 16 App Router 构建的动效组件展示站，收录了 22 个来自 [React Bits](https://reactbits.dev)（MIT 协议）的高质量动效组件，并将它们全部以**可交互实景演示**的方式呈现在一个单页应用中。
+**React Bits Gallery** 是一个基于 Next.js 16 App Router 构建的动效组件展示站，收录了 28 个来自 [React Bits](https://reactbits.dev)（MIT 协议）的高质量动效组件，并将它们全部以**可交互实景演示**的方式呈现在一个单页应用中。
 
 项目的核心目标有三个：其一，提供一个直观的「所见即所得」画廊，让访客在浏览器里直接感受每个组件的真实手感，而非仅看静态截图；其二，沉淀一套可直接复制的组件源码，全部使用 React + TypeScript + Tailwind CSS 编写，无任何封装锁定；其三，验证这些组件在 Next.js 16 + React 19 的严格模式（Strict Mode）与 React Compiler 环境下的兼容性，所有组件均通过了 ESLint 零警告检查与真实浏览器端到端验证。
 
@@ -37,6 +37,8 @@
 | **Particles** | OGL · `gl.POINTS` | 数千颗发光粒子，静息漂移，鼠标靠近时产生实时斥力场 |
 | **DotGrid** | OGL · Fragment Shader | 程序化点阵网格，光标周围圆点膨胀增亮，带呼吸波动画 |
 | **Squares** | Canvas 2D | 方格涟漪：波浪沿对角线扫过方格阵列，悬停点亮光标所在单元格 |
+| **Silk** | OGL · GLSL ES 3.0 | 五倍频 Simplex 噪声折叠成丝绸光泽面，支持颜色/转速/缩放/旋转定制 |
+| **Waves** | OGL · Vertex Shader | 透射式正弦波场，相机随光标环绕俯瞰，波峰高光与边缘溶解 |
 
 ### ✍️ 文字动画（Text Animations）
 
@@ -50,6 +52,8 @@
 | **CountUp** | GSAP + IntersectionObserver | 数字滚动计数，进入视口触发，支持千分位与小数 |
 | **TextType** | React 定时器 | 打字机效果：输入 → 停顿 → 删除 → 循环下一条，带闪烁光标 |
 | **CircularText** | SVG textPath + CSS | 文字沿圆环路径持续旋转，悬停加速（可配置减速/停止） |
+| **ScrambleText** | rAF 定时器 | 字符从随机字符池中翻滚，从左到右逐位锁定，支持多短语循环 |
+| **TextPressure** | rAF + 线性插值 | 字母随光标距离拉伸变形，离开后弹性恢复（光滑衰减曲线） |
 
 ### 🎬 入场动画（Animations）
 
@@ -59,6 +63,8 @@
 | **ClickSpark** | Canvas 2D | 点击任意位置迸发的火花粒子，easeOut 缓动 + 透明度衰减 |
 | **StarBorder** | 纯 CSS | 沿边框无限巡游的星光流，为 CTA 按钮注入能量感 |
 | **FadeContent** | IntersectionObserver | 轻量淡入（可选模糊）入场，进入视口即触发 |
+| **BlobCursor** | Canvas 2D | 多层发光泡泡拖尾追随光标（screen 混合），空闲时沿李萨如轨迹自转 |
+| **MetaBalls** | SVG gooey filter | 黏液质感 Metaballs：按住指针吸附融合，松手弹回原位 |
 
 ### 🖱️ 微交互（Components）
 
@@ -115,18 +121,21 @@ src/
 ├── components/
 │   ├── reactbits/              # ⚛ React Bits 组件库（本站核心资产）
 │   │   ├── Backgrounds/        #   Aurora / Particles / DotGrid / Squares
+│   │   │                       #   Silk / Waves
 │   │   ├── TextAnimations/     #   SplitText / BlurText / GradientText / ShinyText
 │   │   │                       #   CountUp / RotatingText / TextType / CircularText
+│   │   │                       #   ScrambleText / TextPressure
 │   │   ├── Animations/         #   AnimatedContent / ClickSpark / StarBorder / FadeContent
+│   │   │                       #   BlobCursor / MetaBalls
 │   │   ├── Components/         #   SpotlightCard / TiltedCard / Magnet / Dock
 │   │   │                       #   ElasticSlider / Stack / MagnetLines
 │   │   └── index.ts            #   统一桶式导出（barrel export）
 │   ├── landing/                # 展示站页面区块
 │   │   ├── Nav.tsx             #   毛玻璃滚动感知导航
 │   │   ├── Hero.tsx            #   首屏：Aurora 背景 + 双行标题 + 统计卡片
-│   │   ├── BackgroundsSection.tsx  # 三个 WebGL 背景的实景演示卡
-│   │   ├── TextSection.tsx     #   六个文字动画的实景演示卡
-│   │   ├── InteractionsSection.tsx # TiltedCard / Magnet / Dock 演示卡
+│   │   ├── BackgroundsSection.tsx  # 背景组件实景演示卡（5 WebGL + 1 Canvas）
+│   │   ├── TextSection.tsx     #   文字动画实景演示卡（9 组件）
+│   │   ├── InteractionsSection.tsx # 微交互演示卡（8 组件）
 │   │   └── Footer.tsx          #   CTA 横幅（DotGrid 背景）+ 页脚
 │   └── ui/                     # shadcn/ui 基础组件（由脚手架提供）
 └── lib/
@@ -174,8 +183,8 @@ export function MyHero() {
 
 > **注意事项**
 >
-> - 背景類组件（Aurora / Particles / DotGrid）的根元素定位由调用方通过 `className` 控制（如 `absolute inset-0`），请确保父容器有 `relative` 或 `isolate` 以正确建立层叠上下文。
-> - 三者均已在内部处理了 WebGL 上下文创建失败、`ResizeObserver` 自适应与组件卸载时的资源回收（`WEBGL_lose_context`），可安全地在路由间切换。
+> - 背景類组件（Aurora / Particles / DotGrid / Silk / Waves）的根元素定位由调用方通过 `className` 控制（如 `absolute inset-0`），请确保父容器有 `relative` 或 `isolate` 以正确建立层叠上下文。
+> - 它们均已在内部处理了 WebGL 上下文创建失败、`ResizeObserver` 自适应与组件卸载时的资源回收（`WEBGL_lose_context`），可安全地在路由间切换。
 > - GSAP 驱动的组件使用 IntersectionObserver 触发，滚动出视口后不会重复播放；FPS 开销集中在 rAF 循环，移动端已通过 `dpr` 上限（≤2）做了降载。
 
 ## 🎨 主题定制
@@ -199,7 +208,7 @@ export function MyHero() {
 | 样式 | Tailwind CSS 4 + shadcn/ui | 原子化样式与基础组件 |
 | 动画 | GSAP 3.15 | 文字拆分、计数、滚动入场 |
 | 动画 | Framer Motion 11 | 弹簧物理交互（倾斜/磁吸/坞站） |
-| 图形 | OGL 1.0（WebGL2） | 极光/粒子/点阵三套着色器背景 |
+| 图形 | OGL 1.0（WebGL2） | 极光/粒子/点阵/丝绸/波浪五套着色器背景 |
 | 质量 | ESLint（react-hooks + react-compiler 规则） | 0 error / 0 warning |
 
 ## 📄 许可证

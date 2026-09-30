@@ -9,8 +9,10 @@ import {
   DotGrid,
   Particles,
   ShinyText,
+  Silk,
   Squares,
   SpotlightCard,
+  Waves,
 } from "@/components/reactbits";
 
 function SectionHeader({ eyebrow, title, accent, description }: {
@@ -72,11 +74,11 @@ export default function BackgroundsSection() {
           eyebrow="Backgrounds"
           title="Living canvases for"
           accent="your hero"
-          description="Shader-driven scenes rendered on a single fullscreen triangle with OGL. Drop them behind any content and watch the page breathe."
+          description="Shader-driven scenes rendered live with OGL. Drop them behind any content and watch the page breathe."
         />
       </AnimatedContent>
 
-      <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         <AnimatedContent delay={0} distance={60}>
           <PreviewCard
             name="Aurora"
@@ -134,6 +136,38 @@ export default function BackgroundsSection() {
               squareSize={34}
               borderColor="#4a2a7a"
               hoverFillColor="#5227FF"
+            />
+          </PreviewCard>
+        </AnimatedContent>
+
+        <AnimatedContent delay={0.48} distance={60}>
+          <PreviewCard
+            name="Silk"
+            tech="OGL · GLSL ES 3.0"
+            description="Five-octave simplex noise folded into luminous satin ridges, drifting endlessly in the dark."
+          >
+            <Silk
+              className="absolute inset-0"
+              color="#5227FF"
+              speed={0.55}
+              scale={1.6}
+              noiseIntensity={1.0}
+              rotation={0.6}
+            />
+          </PreviewCard>
+        </AnimatedContent>
+
+        <AnimatedContent delay={0.6} distance={60}>
+          <PreviewCard
+            name="Waves"
+            tech="OGL · Vertex Shader"
+            description="A translucent sine-field surface undulating in perspective — the camera orbits gently toward your cursor."
+          >
+            <Waves
+              className="absolute inset-0"
+              hue={259}
+              amplitude={1.5}
+              alpha={0.9}
             />
           </PreviewCard>
         </AnimatedContent>

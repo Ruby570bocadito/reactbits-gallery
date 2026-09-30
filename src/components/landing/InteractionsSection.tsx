@@ -18,11 +18,13 @@ import {
 } from "lucide-react";
 import {
   AnimatedContent,
+  BlobCursor,
   BlurText,
   Dock,
   ElasticSlider,
   Magnet,
   MagnetLines,
+  MetaBalls,
   ShinyText,
   Stack,
   SpotlightCard,
@@ -187,6 +189,36 @@ export default function InteractionsSection() {
               <h3 className="text-sm font-semibold text-white">MagnetLines</h3>
               <p className="mt-1 text-xs leading-relaxed text-white/50">
                 A compass field of segments rotating toward the cursor with easing.
+              </p>
+            </div>
+          </SpotlightCard>
+        </AnimatedContent>
+
+        {/* BlobCursor */}
+        <AnimatedContent distance={50}>
+          <SpotlightCard className="h-full">
+            <div className="relative h-72 overflow-hidden">
+              <BlobCursor className="absolute inset-0" blobCount={9} baseRadius={44} />
+            </div>
+            <div className="border-t border-white/[0.06] px-5 py-4">
+              <h3 className="text-sm font-semibold text-white">BlobCursor</h3>
+              <p className="mt-1 text-xs leading-relaxed text-white/50">
+                A glowing comet of blended blobs chasing the cursor — drifts on its own when idle.
+              </p>
+            </div>
+          </SpotlightCard>
+        </AnimatedContent>
+
+        {/* MetaBalls */}
+        <AnimatedContent distance={50} delay={0.08}>
+          <SpotlightCard className="h-full">
+            <div className="relative h-72 overflow-hidden">
+              <MetaBalls className="absolute inset-0" ballCount={4} colors={["#FF2D92", "#5227FF", "#B497FF", "#7C3AED"]} />
+            </div>
+            <div className="border-t border-white/[0.06] px-5 py-4">
+              <h3 className="text-sm font-semibold text-white">MetaBalls</h3>
+              <p className="mt-1 text-xs leading-relaxed text-white/50">
+                Gooey metaballs — press and hold to melt them onto the pointer, release to snap back.
               </p>
             </div>
           </SpotlightCard>
