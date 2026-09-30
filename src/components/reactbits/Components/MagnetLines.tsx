@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export type MagnetLinesProps = {
@@ -46,6 +46,30 @@ export default function MagnetLines({
   const linesRef = useRef<LineEntry[]>([]);
   const mouseRef = useRef<{ x: number; y: number } | null>(null);
   const rafRef = useRef(0);
+
+  const baseCell = Math.max(lineHeight * 1.6, 40);
+  // Shrink cells to fit narrow containers instead of overflowing them
+  const [cell, setCell] = useState(baseCell);
+
+  useEffect(() => {
+    // The root sizes itself from the template, so measure the parent box
+    const host = containerRef.current?.parentElement;
+    if (!host) return;
+    const measure = () => {
+      const cs = getComputedStyle(host);
+      const inner =
+        host.clientWidth -
+        parseFloat(cs.paddingLeft || "0") -
+        parseFloat(cs.paddingRight || "0");
+      if (inner > 0) {
+        setCell(Math.max(10, Math.min(baseCell, Math.floor(inner / columns))));
+      }
+    };
+    const ro = new ResizeObserver(measure);
+    ro.observe(host);
+    measure();
+    return () => ro.disconnect();
+  }, [baseCell, columns]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -118,8 +142,6 @@ export default function MagnetLines({
       };
     });
   };
-
-  const cell = Math.max(lineHeight * 1.6, 40);
 
   return (
     <div

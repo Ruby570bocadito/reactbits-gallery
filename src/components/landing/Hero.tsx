@@ -13,7 +13,7 @@ import {
 } from "@/components/reactbits";
 
 const STATS = [
-  { value: 28, suffix: "", label: "Components" },
+  { value: 35, suffix: "", label: "Components" },
   { value: 5, suffix: "", label: "WebGL backgrounds" },
   { value: 60, suffix: "fps", label: "Spring motion" },
   { value: 100, suffix: "%", label: "MIT licensed" },
@@ -41,7 +41,7 @@ export default function Hero() {
         <div className="mb-6 flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 backdrop-blur-md">
           <Sparkles className="h-3.5 w-3.5 text-[#B497FF]" />
           <ShinyText
-            text="28 open-source animated components · MIT"
+            text="35 open-source animated components · MIT"
             speed={5}
             className="text-xs font-medium"
           />

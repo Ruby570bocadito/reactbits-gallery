@@ -13,6 +13,7 @@ import {
   SpotlightCard,
   TextPressure,
   TextType,
+  TrueFocus,
 } from "@/components/reactbits";
 
 const DEMO_HEIGHT = "flex h-36 items-center justify-center overflow-hidden px-4";
@@ -28,14 +29,14 @@ export default function TextSection() {
               Kinetic <span className="bg-gradient-to-r from-[#B497FF] to-[#FF2D92] bg-clip-text text-transparent">typography</span>
             </h2>
             <BlurText
-              text="From letter-by-letter reveals to flowing gradients — ten ways to make words earn attention."
+              text="From letter-by-letter reveals to flowing gradients — eleven ways to make words earn attention."
               className="mt-4 text-base leading-relaxed text-white/60"
               delay={250}
             />
           </div>
         </AnimatedContent>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatedContent distance={50}>
             <SpotlightCard className="h-full">
               <div className={DEMO_HEIGHT}>
@@ -211,6 +212,27 @@ export default function TextSection() {
                 <h3 className="text-sm font-semibold text-white">TextPressure</h3>
                 <p className="mt-1 text-xs leading-relaxed text-white/50">
                   Letters stretch under the cursor and spring softly back.
+                </p>
+              </div>
+            </SpotlightCard>
+          </AnimatedContent>
+
+          <AnimatedContent distance={50}>
+            <SpotlightCard className="h-full">
+              <div className={DEMO_HEIGHT}>
+                <TrueFocus
+                  sentence="True focus tracking"
+                  interval={1400}
+                  blurAmount={4}
+                  borderColor="#8261FF"
+                  glowColor="rgba(130, 97, 255, 0.55)"
+                  className="text-lg font-bold"
+                />
+              </div>
+              <div className="border-t border-white/[0.06] px-5 py-4">
+                <h3 className="text-sm font-semibold text-white">TrueFocus</h3>
+                <p className="mt-1 text-xs leading-relaxed text-white/50">
+                  A camera focus frame hops word to word, snapping each into clarity.
                 </p>
               </div>
             </SpotlightCard>

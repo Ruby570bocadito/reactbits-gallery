@@ -13,7 +13,7 @@
 [![OGL](https://img.shields.io/badge/OGL-WebGL-5227FF?style=flat-square)](https://github.com/oframe/ogl)
 [![License: MIT](https://img.shields.io/badge/License-MIT-8261FF?style=flat-square)](LICENSE)
 
-*28 个精心策划的 [React Bits](https://reactbits.dev) 动效组件 · WebGL 背景 · 动态排版 · 微交互*
+*35 个精心策划的 [React Bits](https://reactbits.dev) 动效组件 · WebGL 背景 · 动态排版 · 微交互*
 
 </div>
 
@@ -21,7 +21,7 @@
 
 ## 📖 简介
 
-**React Bits Gallery** 是一个基于 Next.js 16 App Router 构建的动效组件展示站，收录了 28 个来自 [React Bits](https://reactbits.dev)（MIT 协议）的高质量动效组件，并将它们全部以**可交互实景演示**的方式呈现在一个单页应用中。
+**React Bits Gallery** 是一个基于 Next.js 16 App Router 构建的动效组件展示站，收录了 35 个来自 [React Bits](https://reactbits.dev)（MIT 协议）的高质量动效组件，并将它们全部以**可交互实景演示**的方式呈现在一个单页应用中。
 
 项目的核心目标有三个：其一，提供一个直观的「所见即所得」画廊，让访客在浏览器里直接感受每个组件的真实手感，而非仅看静态截图；其二，沉淀一套可直接复制的组件源码，全部使用 React + TypeScript + Tailwind CSS 编写，无任何封装锁定；其三，验证这些组件在 Next.js 16 + React 19 的严格模式（Strict Mode）与 React Compiler 环境下的兼容性，所有组件均通过了 ESLint 零警告检查与真实浏览器端到端验证。
 
@@ -39,6 +39,8 @@
 | **Squares** | Canvas 2D | 方格涟漪：波浪沿对角线扫过方格阵列，悬停点亮光标所在单元格 |
 | **Silk** | OGL · GLSL ES 3.0 | 五倍频 Simplex 噪声折叠成丝绸光泽面，支持颜色/转速/缩放/旋转定制 |
 | **Waves** | OGL · Vertex Shader | 透射式正弦波场，相机随光标环绕俯瞰，波峰高光与边缘溶解 |
+| **Lightning** | Canvas 2D | 中点位移递归闪电：随机分叉、环境闪光，每次打击形态各异并渐隐余烬 |
+| **LetterGlitch** | Canvas 2D | 矩阵字符板随机解码成彩色字形，点击可冲击整板（支持字符集/色板/频率定制） |
 
 ### ✍️ 文字动画（Text Animations）
 
@@ -54,6 +56,7 @@
 | **CircularText** | SVG textPath + CSS | 文字沿圆环路径持续旋转，悬停加速（可配置减速/停止） |
 | **ScrambleText** | rAF 定时器 | 字符从随机字符池中翻滚，从左到右逐位锁定，支持多短语循环 |
 | **TextPressure** | rAF + 线性插值 | 字母随光标距离拉伸变形，离开后弹性恢复（光滑衰减曲线） |
+| **TrueFocus** | React 状态 + CSS 过渡 | 相机对焦框逐词跳跃，框内文字清晰对焦、其余模糊虚化，支持手动模式 |
 
 ### 🎬 入场动画（Animations）
 
@@ -65,6 +68,7 @@
 | **FadeContent** | IntersectionObserver | 轻量淡入（可选模糊）入场，进入视口即触发 |
 | **BlobCursor** | Canvas 2D | 多层发光泡泡拖尾追随光标（screen 混合），空闲时沿李萨如轨迹自转 |
 | **MetaBalls** | SVG gooey filter | 黏液质感 Metaballs：按住指针吸附融合，松手弹回原位 |
+| **ImageTrail** | GSAP | 光标扫过时依次落下一串图片卡：弹入、悬停、翻滚退场（内置程序化渐变图，零外部资源） |
 
 ### 🖱️ 微交互（Components）
 
@@ -77,6 +81,8 @@
 | **ElasticSlider** | Framer Motion | 弹性滑块：拖出端点时旋钮产生橡皮筋拉伸回弹 |
 | **Stack** | Framer Motion | 卡片堆叠：甩出顶部卡片，整摞弹簽循环前移 |
 | **MagnetLines** | rAF + 线性插值 | 指北针线段阵列，随光标方向带缓动旋转并局部放大 |
+| **Marquee** | 纯 CSS | 无缝水平跑马灯：内容复制两份 + 单关键帧位移，支持反向、调速与悬停暂停 |
+| **ChromaGrid** | CSS 变量 + 遮罩 | 双色色差边框与内部光晕逐卡追踪光标，纯 CSS 自定义属性实现、移动零重渲染 |
 
 ## 🚀 快速开始
 
@@ -121,21 +127,22 @@ src/
 ├── components/
 │   ├── reactbits/              # ⚛ React Bits 组件库（本站核心资产）
 │   │   ├── Backgrounds/        #   Aurora / Particles / DotGrid / Squares
-│   │   │                       #   Silk / Waves
+│   │   │                       #   Silk / Waves / Lightning / LetterGlitch
 │   │   ├── TextAnimations/     #   SplitText / BlurText / GradientText / ShinyText
 │   │   │                       #   CountUp / RotatingText / TextType / CircularText
-│   │   │                       #   ScrambleText / TextPressure
+│   │   │                       #   ScrambleText / TextPressure / TrueFocus
 │   │   ├── Animations/         #   AnimatedContent / ClickSpark / StarBorder / FadeContent
-│   │   │                       #   BlobCursor / MetaBalls
+│   │   │                       #   BlobCursor / MetaBalls / ImageTrail
 │   │   ├── Components/         #   SpotlightCard / TiltedCard / Magnet / Dock
 │   │   │                       #   ElasticSlider / Stack / MagnetLines
+│   │   │                       #   Marquee / ChromaGrid
 │   │   └── index.ts            #   统一桶式导出（barrel export）
 │   ├── landing/                # 展示站页面区块
 │   │   ├── Nav.tsx             #   毛玻璃滚动感知导航
 │   │   ├── Hero.tsx            #   首屏：Aurora 背景 + 双行标题 + 统计卡片
-│   │   ├── BackgroundsSection.tsx  # 背景组件实景演示卡（5 WebGL + 1 Canvas）
-│   │   ├── TextSection.tsx     #   文字动画实景演示卡（9 组件）
-│   │   ├── InteractionsSection.tsx # 微交互演示卡（8 组件）
+│   │   ├── BackgroundsSection.tsx  # 背景组件实景演示卡（5 WebGL + 3 Canvas）
+│   │   ├── TextSection.tsx     #   文字动画实景演示卡（10 组件）
+│   │   ├── InteractionsSection.tsx # 微交互演示卡（11 组件，含整行 ChromaGrid）
 │   │   └── Footer.tsx          #   CTA 横幅（DotGrid 背景）+ 页脚
 │   └── ui/                     # shadcn/ui 基础组件（由脚手架提供）
 └── lib/

@@ -14,6 +14,10 @@ export { default as Silk } from "./Backgrounds/Silk";
 export type { SilkProps } from "./Backgrounds/Silk";
 export { default as Waves } from "./Backgrounds/Waves";
 export type { WavesProps } from "./Backgrounds/Waves";
+export { default as Lightning } from "./Backgrounds/Lightning";
+export type { LightningProps } from "./Backgrounds/Lightning";
+export { default as LetterGlitch } from "./Backgrounds/LetterGlitch";
+export type { LetterGlitchProps } from "./Backgrounds/LetterGlitch";
 
 // Text Animations
 export { default as SplitText } from "./TextAnimations/SplitText";
@@ -28,6 +32,8 @@ export { default as ScrambleText } from "./TextAnimations/ScrambleText";
 export type { ScrambleTextProps } from "./TextAnimations/ScrambleText";
 export { default as TextPressure } from "./TextAnimations/TextPressure";
 export type { TextPressureProps } from "./TextAnimations/TextPressure";
+export { default as TrueFocus } from "./TextAnimations/TrueFocus";
+export type { TrueFocusProps } from "./TextAnimations/TrueFocus";
 
 // Animations
 export { default as AnimatedContent } from "./Animations/AnimatedContent";
@@ -38,6 +44,8 @@ export { default as BlobCursor } from "./Animations/BlobCursor";
 export type { BlobCursorProps } from "./Animations/BlobCursor";
 export { default as MetaBalls } from "./Animations/MetaBalls";
 export type { MetaBallsProps } from "./Animations/MetaBalls";
+export { default as ImageTrail } from "./Animations/ImageTrail";
+export type { ImageTrailProps } from "./Animations/ImageTrail";
 
 // Components
 export { default as SpotlightCard } from "./Components/SpotlightCard";
@@ -49,3 +57,7 @@ export { default as MagnetLines } from "./Components/MagnetLines";
 export { default as ElasticSlider } from "./Components/ElasticSlider";
 export { default as Stack } from "./Components/Stack";
 export type { StackItem } from "./Components/Stack";
+export { default as Marquee } from "./Components/Marquee";
+export type { MarqueeProps } from "./Components/Marquee";
+export { default as ChromaGrid } from "./Components/ChromaGrid";
+export type { ChromaGridProps, ChromaItem } from "./Components/ChromaGrid";

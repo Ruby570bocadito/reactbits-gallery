@@ -7,6 +7,8 @@ import {
   Aurora,
   BlurText,
   DotGrid,
+  LetterGlitch,
+  Lightning,
   Particles,
   ShinyText,
   Silk,
@@ -78,7 +80,7 @@ export default function BackgroundsSection() {
         />
       </AnimatedContent>
 
-      <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         <AnimatedContent delay={0} distance={60}>
           <PreviewCard
             name="Aurora"
@@ -168,6 +170,36 @@ export default function BackgroundsSection() {
               hue={259}
               amplitude={1.5}
               alpha={0.9}
+            />
+          </PreviewCard>
+        </AnimatedContent>
+
+        <AnimatedContent delay={0} distance={60}>
+          <PreviewCard
+            name="Lightning"
+            tech="Canvas 2D"
+            description="Midpoint-displacement bolts fork, flash and fade — every strike branches differently."
+          >
+            <Lightning
+              className="absolute inset-0"
+              hue={259}
+              interval={2.1}
+              forkProbability={0.2}
+            />
+          </PreviewCard>
+        </AnimatedContent>
+
+        <AnimatedContent delay={0.12} distance={60}>
+          <PreviewCard
+            name="LetterGlitch"
+            tech="Canvas 2D"
+            description="A matrix of glyphs randomly decoding into color — click the card to shock the whole board."
+          >
+            <LetterGlitch
+              className="absolute inset-0"
+              fontSize={16}
+              glitchSpeed={90}
+              idleOpacity={0.16}
             />
           </PreviewCard>
         </AnimatedContent>

@@ -1,12 +1,15 @@
 "use client";
 
 import {
+  Atom,
   Bell,
   Camera,
   Compass,
+  Cpu,
   Github,
   Heart,
   Home,
+  Layers,
   MousePointer2,
   Palette,
   Rocket,
@@ -14,16 +17,20 @@ import {
   Sparkles,
   Volume2,
   VolumeX,
+  Wand2,
   Zap,
 } from "lucide-react";
 import {
   AnimatedContent,
   BlobCursor,
   BlurText,
+  ChromaGrid,
   Dock,
   ElasticSlider,
+  ImageTrail,
   Magnet,
   MagnetLines,
+  Marquee,
   MetaBalls,
   ShinyText,
   Stack,
@@ -39,6 +46,42 @@ const DOCK_ITEMS = [
   { title: "Notifications", icon: <Bell /> },
   { title: "Settings", icon: <Settings /> },
   { title: "GitHub", icon: <Github /> },
+];
+
+const MARQUEE_PILLS = [
+  { icon: <Atom className="h-3.5 w-3.5" />, label: "WebGL" },
+  { icon: <Wand2 className="h-3.5 w-3.5" />, label: "GSAP" },
+  { icon: <Layers className="h-3.5 w-3.5" />, label: "Tailwind 4" },
+  { icon: <Cpu className="h-3.5 w-3.5" />, label: "React 19" },
+  { icon: <Sparkles className="h-3.5 w-3.5" />, label: "Framer Motion" },
+  { icon: <Zap className="h-3.5 w-3.5" />, label: "OGL" },
+];
+
+const CHROMA_ITEMS = [
+  {
+    icon: <Sparkles className="h-5 w-5 text-[#B497FF]" />,
+    title: "Cursor-tracked border",
+    subtitle: "Conic chroma follows the pointer",
+    handle: "@chromagrid",
+    borderColor: "#5227FF",
+    gradientColor: "#FF2D92",
+  },
+  {
+    icon: <Palette className="h-5 w-5 text-[#FF2D92]" />,
+    title: "Two-tone wash",
+    subtitle: "Interior glow at 14% opacity",
+    handle: "@motionlab",
+    borderColor: "#FF2D92",
+    gradientColor: "#B497FF",
+  },
+  {
+    icon: <Zap className="h-5 w-5 text-[#7dffc4]" />,
+    title: "Zero re-renders",
+    subtitle: "CSS custom properties only",
+    handle: "@gpu.friendly",
+    borderColor: "#2AFFE6",
+    gradientColor: "#5227FF",
+  },
 ];
 
 export default function InteractionsSection() {
@@ -58,7 +101,7 @@ export default function InteractionsSection() {
         </div>
       </AnimatedContent>
 
-      <div className="mt-14 grid gap-5 md:grid-cols-3">
+      <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
         {/* TiltedCard */}
         <AnimatedContent distance={50}>
           <SpotlightCard className="h-full">
@@ -219,6 +262,77 @@ export default function InteractionsSection() {
               <h3 className="text-sm font-semibold text-white">MetaBalls</h3>
               <p className="mt-1 text-xs leading-relaxed text-white/50">
                 Gooey metaballs — press and hold to melt them onto the pointer, release to snap back.
+              </p>
+            </div>
+          </SpotlightCard>
+        </AnimatedContent>
+
+        {/* ImageTrail */}
+        <AnimatedContent distance={50} delay={0.16}>
+          <SpotlightCard className="h-full">
+            <div className="relative h-72 overflow-hidden">
+              <ImageTrail className="absolute inset-0 bg-[#08010f]" threshold={100} width={120} height={150} />
+            </div>
+            <div className="border-t border-white/[0.06] px-5 py-4">
+              <h3 className="text-sm font-semibold text-white">ImageTrail</h3>
+              <p className="mt-1 text-xs leading-relaxed text-white/50">
+                Sweeping the cursor leaves a trail of cards that pop in, hang, then tumble away.
+              </p>
+            </div>
+          </SpotlightCard>
+        </AnimatedContent>
+
+        {/* Marquee */}
+        <AnimatedContent distance={50}>
+          <SpotlightCard className="h-full">
+            <div className="flex h-72 flex-col items-center justify-center gap-6 overflow-hidden p-6">
+              <Marquee speed={16} direction="left">
+                <div className="flex items-center gap-3 pr-3">
+                  {MARQUEE_PILLS.map((pill) => (
+                    <span
+                      key={pill.label}
+                      className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-xs font-semibold whitespace-nowrap text-white/80"
+                    >
+                      <span className="text-[#B497FF]">{pill.icon}</span>
+                      {pill.label}
+                    </span>
+                  ))}
+                </div>
+              </Marquee>
+              <Marquee speed={20} direction="right">
+                <div className="flex items-center gap-3 pr-3">
+                  {MARQUEE_PILLS.slice().reverse().map((pill) => (
+                    <span
+                      key={pill.label}
+                      className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-xs font-semibold whitespace-nowrap text-white/80"
+                    >
+                      <span className="text-[#FF2D92]">{pill.icon}</span>
+                      {pill.label}
+                    </span>
+                  ))}
+                </div>
+              </Marquee>
+              <span className="text-[11px] uppercase tracking-[0.25em] text-white/35">Hover to pause</span>
+            </div>
+            <div className="border-t border-white/[0.06] px-5 py-4">
+              <h3 className="text-sm font-semibold text-white">Marquee</h3>
+              <p className="mt-1 text-xs leading-relaxed text-white/50">
+                A seamless CSS loop of any content — reverses direction and pauses on hover.
+              </p>
+            </div>
+          </SpotlightCard>
+        </AnimatedContent>
+
+        {/* ChromaGrid — full-width feature row */}
+        <AnimatedContent distance={50} delay={0.08} className="md:col-span-3">
+          <SpotlightCard>
+            <div className="p-6">
+              <ChromaGrid items={CHROMA_ITEMS} columnsClass="grid-cols-1 sm:grid-cols-3" />
+            </div>
+            <div className="border-t border-white/[0.06] px-5 py-4">
+              <h3 className="text-sm font-semibold text-white">ChromaGrid</h3>
+              <p className="mt-1 text-xs leading-relaxed text-white/50">
+                Card grid with a two-tone chroma border that tracks the cursor — rendered entirely with CSS custom properties.
               </p>
             </div>
           </SpotlightCard>
