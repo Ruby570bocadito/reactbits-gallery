@@ -148,3 +148,17 @@ Stage Summary:
 - 站点已上线：https://ruby570bocadito.github.io/reactbits-gallery/（main 每次推送自动重新部署）
 - 部署架构：静态导出（out/）+ GitHub Actions（bun，~45s/次）+ Pages build_type=workflow；无服务器、零运行成本
 - 本地开发/standalone 产物不受影响（NEXT_EXPORT 缺省走原路径）；无遗留问题
+
+---
+Task ID: 7
+Agent: Super Z (main agent)
+Task: 建立进度汇报通道（Discord webhook，用户提供）
+
+Work Log:
+- 用户提供 Discord webhook URL，要求后续把工作进展持续汇报到其角色对应的频道
+- 通过该 webhook 发送首份进度报告（Tasks 1-6 汇总：站点基础 → 35 组件扩展 → GitHub 发布 → Pages 部署；HTTP 200，message id 1554783806681124925）
+- 安全处理：webhook URL 属凭据，仅存在于一次性 curl 命令中，不写入 worklog/任何仓库文件（本仓库为公开仓库）；payload 暂存 scripts/discord-report.json（不含 URL）
+- 约定：后续 Task 完成后经此通道发送简报；仓库内仅记录「已通过 Discord 汇报」，不记录 URL 本身
+
+Stage Summary:
+- Discord 汇报通道已建立并验证可用；用户对 Pages 部署的疑问已在报告中附注说明（可随时下线）
