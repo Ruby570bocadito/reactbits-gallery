@@ -9,6 +9,7 @@ import {
   DotGrid,
   Particles,
   ShinyText,
+  Squares,
   SpotlightCard,
 } from "@/components/reactbits";
 
@@ -75,7 +76,7 @@ export default function BackgroundsSection() {
         />
       </AnimatedContent>
 
-      <div className="mt-14 grid gap-6 md:grid-cols-3">
+      <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         <AnimatedContent delay={0} distance={60}>
           <PreviewCard
             name="Aurora"
@@ -116,6 +117,23 @@ export default function BackgroundsSection() {
               gridSize={22}
               dotColor="#B497FF"
               waveAmplitude={0.4}
+            />
+          </PreviewCard>
+        </AnimatedContent>
+
+        <AnimatedContent delay={0.36} distance={60}>
+          <PreviewCard
+            name="Squares"
+            tech="Canvas 2D"
+            description="A diagonal wave sweeping through a square lattice; hover to light up the cells under your cursor."
+          >
+            <Squares
+              className="absolute inset-0"
+              direction="diagonal"
+              speed={0.55}
+              squareSize={34}
+              borderColor="#4a2a7a"
+              hoverFillColor="#5227FF"
             />
           </PreviewCard>
         </AnimatedContent>

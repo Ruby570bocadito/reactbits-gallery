@@ -1,6 +1,17 @@
 "use client";
 
-import { AnimatedContent, BlurText, CountUp, GradientText, RotatingText, ShinyText, SplitText, SpotlightCard } from "@/components/reactbits";
+import {
+  AnimatedContent,
+  BlurText,
+  CircularText,
+  CountUp,
+  GradientText,
+  RotatingText,
+  ShinyText,
+  SplitText,
+  SpotlightCard,
+  TextType,
+} from "@/components/reactbits";
 
 const DEMO_HEIGHT = "flex h-36 items-center justify-center overflow-hidden px-4";
 
@@ -15,7 +26,7 @@ export default function TextSection() {
               Kinetic <span className="bg-gradient-to-r from-[#B497FF] to-[#FF2D92] bg-clip-text text-transparent">typography</span>
             </h2>
             <BlurText
-              text="From letter-by-letter reveals to flowing gradients — six ways to make words earn attention."
+              text="From letter-by-letter reveals to flowing gradients — eight ways to make words earn attention."
               className="mt-4 text-base leading-relaxed text-white/60"
               delay={250}
             />
@@ -125,18 +136,43 @@ export default function TextSection() {
             <SpotlightCard className="h-full">
               <div className={DEMO_HEIGHT}>
                 <div className="text-center">
-                  <div className="text-4xl font-bold text-white">
-                    <CountUp to={12480} duration={2.4} />
+                  <div className="text-2xl font-bold text-white">
+                    <TextType
+                      text={["design", "animate", "ship"]}
+                      typingSpeed={85}
+                      pauseDuration={1400}
+                      deletingSpeed={40}
+                      cursorClassName="text-[#B497FF]"
+                    />
                   </div>
                   <div className="mt-1 text-xs uppercase tracking-widest text-white/45">
-                    renders per second
+                    for the modern web
                   </div>
                 </div>
               </div>
               <div className="border-t border-white/[0.06] px-5 py-4">
-                <h3 className="text-sm font-semibold text-white">CountUp</h3>
+                <h3 className="text-sm font-semibold text-white">TextType</h3>
                 <p className="mt-1 text-xs leading-relaxed text-white/50">
-                  Numbers roll up once they enter the viewport, with separators.
+                  A typewriter that types, pauses, deletes and cycles sentences.
+                </p>
+              </div>
+            </SpotlightCard>
+          </AnimatedContent>
+
+          <AnimatedContent distance={50}>
+            <SpotlightCard className="h-full">
+              <div className={DEMO_HEIGHT}>
+                <CircularText
+                  text="REACT BITS • MOTION • REACT BITS • MOTION •"
+                  spinDuration={16}
+                  radius={54}
+                  className="text-white/80"
+                />
+              </div>
+              <div className="border-t border-white/[0.06] px-5 py-4">
+                <h3 className="text-sm font-semibold text-white">CircularText</h3>
+                <p className="mt-1 text-xs leading-relaxed text-white/50">
+                  Text riding a circular path — hover to speed the orbit up.
                 </p>
               </div>
             </SpotlightCard>

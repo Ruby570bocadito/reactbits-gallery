@@ -13,7 +13,7 @@
 [![OGL](https://img.shields.io/badge/OGL-WebGL-5227FF?style=flat-square)](https://github.com/oframe/ogl)
 [![License: MIT](https://img.shields.io/badge/License-MIT-8261FF?style=flat-square)](LICENSE)
 
-*16 个精心策划的 [React Bits](https://reactbits.dev) 动效组件 · WebGL 背景 · 动态排版 · 微交互*
+*22 个精心策划的 [React Bits](https://reactbits.dev) 动效组件 · WebGL 背景 · 动态排版 · 微交互*
 
 </div>
 
@@ -21,7 +21,7 @@
 
 ## 📖 简介
 
-**React Bits Gallery** 是一个基于 Next.js 16 App Router 构建的动效组件展示站，收录了 16 个来自 [React Bits](https://reactbits.dev)（MIT 协议）的高质量动效组件，并将它们全部以**可交互实景演示**的方式呈现在一个单页应用中。
+**React Bits Gallery** 是一个基于 Next.js 16 App Router 构建的动效组件展示站，收录了 22 个来自 [React Bits](https://reactbits.dev)（MIT 协议）的高质量动效组件，并将它们全部以**可交互实景演示**的方式呈现在一个单页应用中。
 
 项目的核心目标有三个：其一，提供一个直观的「所见即所得」画廊，让访客在浏览器里直接感受每个组件的真实手感，而非仅看静态截图；其二，沉淀一套可直接复制的组件源码，全部使用 React + TypeScript + Tailwind CSS 编写，无任何封装锁定；其三，验证这些组件在 Next.js 16 + React 19 的严格模式（Strict Mode）与 React Compiler 环境下的兼容性，所有组件均通过了 ESLint 零警告检查与真实浏览器端到端验证。
 
@@ -36,6 +36,7 @@
 | **Aurora** | OGL · GLSL ES 3.0 | 多层 Simplex 噪声驱动的极光光带，支持自定义渐变色标、振幅与流速 |
 | **Particles** | OGL · `gl.POINTS` | 数千颗发光粒子，静息漂移，鼠标靠近时产生实时斥力场 |
 | **DotGrid** | OGL · Fragment Shader | 程序化点阵网格，光标周围圆点膨胀增亮，带呼吸波动画 |
+| **Squares** | Canvas 2D | 方格涟漪：波浪沿对角线扫过方格阵列，悬停点亮光标所在单元格 |
 
 ### ✍️ 文字动画（Text Animations）
 
@@ -47,6 +48,8 @@
 | **ShinyText** | 纯 CSS | 高光扫过文字的微光效果，常用于徽章与口号 |
 | **RotatingText** | Framer Motion | 字母逐个上滑退场、新词入场，适合轮播关键词 |
 | **CountUp** | GSAP + IntersectionObserver | 数字滚动计数，进入视口触发，支持千分位与小数 |
+| **TextType** | React 定时器 | 打字机效果：输入 → 停顿 → 删除 → 循环下一条，带闪烁光标 |
+| **CircularText** | SVG textPath + CSS | 文字沿圆环路径持续旋转，悬停加速（可配置减速/停止） |
 
 ### 🎬 入场动画（Animations）
 
@@ -55,6 +58,7 @@
 | **AnimatedContent** | GSAP | 滚动进入视口时的淡入 + 位移，支持方向、距离与缓动配置 |
 | **ClickSpark** | Canvas 2D | 点击任意位置迸发的火花粒子，easeOut 缓动 + 透明度衰减 |
 | **StarBorder** | 纯 CSS | 沿边框无限巡游的星光流，为 CTA 按钮注入能量感 |
+| **FadeContent** | IntersectionObserver | 轻量淡入（可选模糊）入场，进入视口即触发 |
 
 ### 🖱️ 微交互（Components）
 
@@ -64,6 +68,9 @@
 | **TiltedCard** | Framer Motion | 3D 透视倾斜 + 弹簧惯性 + 高光追踪，悬停浮现字幕 |
 | **Magnet** | Framer Motion | 元素被光标磁吸，带弹性回弹与扩展吸引范围 |
 | **Dock** | Framer Motion | macOS 风格程序坞，按光标距离弹性放大图标 |
+| **ElasticSlider** | Framer Motion | 弹性滑块：拖出端点时旋钮产生橡皮筋拉伸回弹 |
+| **Stack** | Framer Motion | 卡片堆叠：甩出顶部卡片，整摞弹簽循环前移 |
+| **MagnetLines** | rAF + 线性插值 | 指北针线段阵列，随光标方向带缓动旋转并局部放大 |
 
 ## 🚀 快速开始
 
@@ -107,11 +114,12 @@ src/
 │   └── globals.css             # Tailwind 4 主题 + React Bits 专属 CSS（星光/微光动画）
 ├── components/
 │   ├── reactbits/              # ⚛ React Bits 组件库（本站核心资产）
-│   │   ├── Backgrounds/        #   Aurora / Particles / DotGrid（OGL WebGL）
+│   │   ├── Backgrounds/        #   Aurora / Particles / DotGrid / Squares
 │   │   ├── TextAnimations/     #   SplitText / BlurText / GradientText / ShinyText
-│   │   │                       #   CountUp / RotatingText
-│   │   ├── Animations/         #   AnimatedContent / ClickSpark / StarBorder
+│   │   │                       #   CountUp / RotatingText / TextType / CircularText
+│   │   ├── Animations/         #   AnimatedContent / ClickSpark / StarBorder / FadeContent
 │   │   ├── Components/         #   SpotlightCard / TiltedCard / Magnet / Dock
+│   │   │                       #   ElasticSlider / Stack / MagnetLines
 │   │   └── index.ts            #   统一桶式导出（barrel export）
 │   ├── landing/                # 展示站页面区块
 │   │   ├── Nav.tsx             #   毛玻璃滚动感知导航
