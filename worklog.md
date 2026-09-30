@@ -97,3 +97,33 @@ Stage Summary:
 - 组件总数 22 → 28（6 背景 / 10 文字 / 6 动画 / 6 交互），全部通过浏览器交互实测
 - 站点、README、worklog 已同步；无遗留问题
 - Waves 的频率语义教训已写入着色器注释（OGL Plane position 域 [-0.5,0.5]）
+
+---
+Task ID: 5
+Agent: Super Z (main agent)
+Task: 继续迭代——扩充 React Bits 组件库（28 → 35 个）+ 修复移动端横向溢出
+
+Work Log:
+- git fetch 同步：无并行改动（main == origin/main @ 879a296，Task 4 的 28 组件扩展已推送）
+- 新增 6 个 React Bits 组件：
+  - Backgrounds/Lightning：Canvas 2D 中点位移递归闪电（主通道 + 随机分叉 + 环境闪光 + 余烬衰减；50% 概率双连击，延迟引信用 age<0 守卫处理）
+  - Backgrounds/LetterGlitch：Canvas 2D 矩阵字符板（随机解码彩色字形 + 热度衰减回息 + 点击冲击整板，charset/palette/frequency 可配）
+  - TextAnimations/TrueFocus：相机对焦框逐词跳跃（blur 过渡 + 边框 boxShadow 辉光 + 取景器四角；manualMode 悬停手动对焦）
+  - Animations/ImageTrail：光标图片拖尾（GSAP timeline 弹入→悬停→翻滚退场；阈值 110px/70ms 限速；无 items 时程序化 Canvas 渐变图零外部资源；并发上限 10 杀最旧）
+  - Components/Marquee：纯 CSS 无缝跑马灯（双副本 + marquee-left/right 关键帧 + 悬停暂停 + 边缘软遮罩）
+  - Components/ChromaGrid：双色色差追光卡片网格（radial-gradient 边框 mask 环 + 内部 14% 光晕，--mx/--my 纯 CSS 变量零重渲染）
+- globals.css 新增：marquee-left/right 关键帧、chroma-card/.chroma-border/.chroma-glow 样式（mask-composite 环形边框）
+- 展示区接线：背景区 8 卡（5 WebGL + 3 Canvas）、文字区 10 卡（ten→eleven ways）、交互区 11 卡（ChromaGrid 以 md:col-span-3 整行呈现）；Hero 徽章与统计 28→35
+- 修复 3 个关键 bug：
+  1. ImageTrail 根元素硬编码 relative 与调用方 absolute inset-0 冲突 → 容器高度塌陷为 0（Task 1 同类教训：定位权交给调用方 className）
+  2. **移动端横向溢出（scrollWidth 1436 > 390）**：根因链 = Marquee 根 flex 的 max-content 固有宽度（= 两条 w-max 轨道之和 1370px）在单列 auto track 网格中把轨道撑到 1420px → section 作为 flex item 被 min-width:auto 顶到 max-w-6xl 上限 1152px。修复：Marquee 根加 [contain:inline-size]（固有内联尺寸归零）+ w-full min-w-0
+  3. MagnetLines 固定模板 repeat(cols, 54.4px) min-content 485px 二次溢出（scrollWidth 517）：组件内加 ResizeObserver 量父级内容盒宽（clientWidth 减去水平 padding），cell = min(baseCell, floor(inner/columns)) 自适应收缩；另为三个 Section 网格补 grid-cols-1（移动端轨道 minmax(0,1fr) 硬保证）+ ChromaGrid 默认列模板同步加固
+- README 同步：35 组件矩阵（4 表新增 6 行）、目录树注释、简介数字
+- 验证：bun run lint 0 error/0 warning；bun run build 成功（4/4 静态页）；agent-browser 端到端实测——Lightning/LetterGlitch 画布像素级渲染确认（2712/13501 亮像素）、TrueFocus 焦点词 blur 3→1→2 循环、ImageTrail 指针扫过生成拖尾卡、Marquee 双副本 transform 同步位移（-60→-87px）、ChromaGrid --mx/--my 追光 + 辉光渐显、移动端 390px scrollWidth == innerWidth 零溢出、MagnetLines 桌面端 304 ≤ 305 完全贴合、控制台零错误
+- git 提交并推送 GitHub
+
+Stage Summary:
+- 组件总数 28 → 35（8 背景 / 11 文字 / 7 动画 / 9 交互），全部通过浏览器交互实测
+- 附带修复两个存量响应式缺陷（MagnetLines 固有宽度溢出为 Task 2 引入；Marquee 固有宽度问题属本批引入即修）
+- 经验沉淀：flex/grid 布局中「固有尺寸（max-content/min-width:auto）」会沿层级向上传播撑破视口——动画组件若含超宽轨道，必须用 contain:inline-size 或显式 grid-cols-1 收敛
+- 站点、README、worklog 已同步；无遗留问题
