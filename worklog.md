@@ -73,3 +73,27 @@ Stage Summary:
 - 项目已发布：https://github.com/Ruby570bocadito/reactbits-gallery（main @ a008d30，22 组件展示站）
 - origin 保存为干净 URL；后续 push/pull 需一次性携带 token（会话中已有），或由用户自行配置凭据
 - 安全提示已告知用户：token 以明文粘贴于对话中，建议用后轮换
+
+---
+Task ID: 4
+Agent: Super Z (main agent)
+Task: 继续迭代——扩充 React Bits 组件库（22 → 28 个）
+
+Work Log:
+- git fetch 同步：无并行改动（main == origin/main @ 80bf324）
+- 新增 6 个 React Bits 组件：
+  - Backgrounds/Silk：GLSL ES 3.0 五倍频 Simplex 噪声丝绸面（Ashima snoise + 色带折叠 + 暗角），props: color/speed/scale/noiseIntensity/rotation
+  - Backgrounds/Waves：OGL Plane 顶点位移 + 相机鼠标环绕；关键修复——OGL Plane position 域为 [-0.5,0.5]，uFreq 需 ≈ 2π×波数（2.2→22），并将平面倾斜成地板视角（rotation.x = -π/2.6）使 z 位移呈现真实几何起伏（浏览器实测迭代 2 轮）
+  - TextAnimations/ScrambleText：rAF 逐位解码 + 多短语循环；用 useMemo 稳定 sequence 引用（react-hooks/refs 禁止渲染期更新 ref）
+  - TextAnimations/TextPressure：字母随光标距离 smoothstep 衰减拉伸 + lerp 回弹（getBoundingClientRect 逐字母测量 + 直接写 transform）
+  - Animations/BlobCursor：Canvas 彗星拖尾（lighter 混合 + screen blendMode），空闲沿李萨如轨迹自转
+  - Animations/MetaBalls：SVG gooey filter（feGaussianBlur + feColorMatrix），按住吸附融合（每球独立弹簧系数）、松手弹回原位，useId 生成 filter id（去冒号）
+- 展示区接线：背景区 3 列 × 6 卡、文字区 9 卡（eight→ten ways）、交互区 8 卡；Hero 徽章与统计 22→28、WebGL 背景 3→5
+- README 同步：28 组件矩阵（3 表新增 6 行）、目录树注释、复用注意事项、OGL 技术栈描述
+- 验证：bun run lint 0 error/0 warning（修复 ScrambleText 多余 eslint-disable 与 ref 渲染期更新两处）；bun run build 成功（4/4 静态页）；agent-browser 端到端实测——Silk/Waves 渲染、TextPressure 悬停梯度拉伸（中心 1.589 → 边缘 1.397）、BlobCursor 彗星追随、MetaBalls 按压融合+释放回弹、移动端 390px 单列、console 零错误
+- git 提交 4f73755 并推送 GitHub（80bf324..4f73755）
+
+Stage Summary:
+- 组件总数 22 → 28（6 背景 / 10 文字 / 6 动画 / 6 交互），全部通过浏览器交互实测
+- 站点、README、worklog 已同步；无遗留问题
+- Waves 的频率语义教训已写入着色器注释（OGL Plane position 域 [-0.5,0.5]）
