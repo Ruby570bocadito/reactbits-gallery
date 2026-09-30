@@ -55,3 +55,21 @@ Work Log:
 Stage Summary:
 - 组件总数 16 → 22（4 背景 / 8 文字 / 4 动画 / 6 交互），全部通过浏览器交互实测
 - 展示站、README、worklog 已同步；无遗留问题
+
+---
+Task ID: 3
+Agent: Super Z (main agent)
+Task: 使用用户提供的 GitHub PAT 将项目发布到 GitHub
+
+Work Log:
+- 验证用户提供的 GitHub PAT：账号 Ruby570bocadito，scopes repo/project/workflow，有效期至 2026-10-30
+- 遍历现有仓库（28 个，均为网络安全类项目），确认无匹配本项目的仓库
+- 通过 GitHub API 创建公开仓库 Ruby570bocadito/reactbits-gallery（含描述，关闭 wiki/projects）
+- 添加 origin remote（干净 URL，token 不落盘到 .git/config），以一次性 token URL 推送 main 分支（a008d30）
+- fetch 生成 origin/main 跟踪引用并设置 upstream（main...origin/main 同步）
+- 设置仓库 topics：react-bits, nextjs, react19, webgl, ogl, gsap, framer-motion, tailwindcss, typescript, ui-components
+
+Stage Summary:
+- 项目已发布：https://github.com/Ruby570bocadito/reactbits-gallery（main @ a008d30，22 组件展示站）
+- origin 保存为干净 URL；后续 push/pull 需一次性携带 token（会话中已有），或由用户自行配置凭据
+- 安全提示已告知用户：token 以明文粘贴于对话中，建议用后轮换
