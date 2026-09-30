@@ -127,3 +127,24 @@ Stage Summary:
 - 附带修复两个存量响应式缺陷（MagnetLines 固有宽度溢出为 Task 2 引入；Marquee 固有宽度问题属本批引入即修）
 - 经验沉淀：flex/grid 布局中「固有尺寸（max-content/min-width:auto）」会沿层级向上传播撑破视口——动画组件若含超宽轨道，必须用 contain:inline-size 或显式 grid-cols-1 收敛
 - 站点、README、worklog 已同步；无遗留问题
+
+---
+Task ID: 6
+Agent: Super Z (main agent)
+Task: 部署站点到 GitHub Pages（静态导出 + GitHub Actions 自动化）
+
+Work Log:
+- git fetch 同步：无并行改动（main == origin/main @ 1be6878，35 组件版本）
+- 静态导出可行性审计：无 next/image、无 headers()/cookies()/searchParams 等动态服务端特性；仅 bun.lock（CI 选用 bun）；src 中无绝对路径 href（basePath 安全）
+- next.config.ts 改为条件配置：NEXT_EXPORT=1 时 output:export + basePath:/reactbits-gallery + trailingSlash + images.unoptimized；默认保持 standalone（本地/服务器模式零影响）
+- 修复 /api 路由阻断导出：Next 16 要求 route handler 声明 export const dynamic="force-static"；该路由为脚手架遗留且无消费者，声明后 dev/standalone/export 三模式无损兼容
+- package.json 新增 build:pages 脚本；新增 .github/workflows/deploy-pages.yml（checkout → setup-bun → bun install --frozen-lockfile → bun x next build（NEXT_EXPORT/basePath 注入）→ touch out/.nojekyll → upload-pages-artifact → deploy-pages；concurrency 去重）
+- 本地验证：export 构建 4/4 静态页；HTML 内所有 asset 前缀正确（/reactbits-gallery/_next/...）；symlink 模拟 Pages 伺服结构 smoke test——index 200(119KB)/标题正确/JS chunk 200/api 200
+- 推送 7412fe5；API 启用 Pages（POST /pages build_type=workflow → HTTP 201, https_enforced=true）；run 36694348610 ~45s completed|success
+- 线上端到端验证（agent-browser）：https://ruby570bocadito.github.io/reactbits-gallery/ HTTP 200；title 正确；控制台零错误；12 个 canvas 具备非零尺寸（hero 1280×801 + 8 张背景卡 350×223）；scrollWidth 1280 == viewport 无横向溢出；截图像素分析 hero 区 35.9% 亮点（Aurora 紫色带 + 白色标题 + #060010 底色，与本地渲染特征一致）
+- 经验沉淀：WebGL readPixels 在无 preserveDrawingBuffer 时合成后必读出 0（假阴性），验收应以截图像素分析为准
+
+Stage Summary:
+- 站点已上线：https://ruby570bocadito.github.io/reactbits-gallery/（main 每次推送自动重新部署）
+- 部署架构：静态导出（out/）+ GitHub Actions（bun，~45s/次）+ Pages build_type=workflow；无服务器、零运行成本
+- 本地开发/standalone 产物不受影响（NEXT_EXPORT 缺省走原路径）；无遗留问题
